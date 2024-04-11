@@ -29,7 +29,6 @@ resource "aws_route_table" "vpn_rt_az1" {
 }
 
 
-
 resource "aws_route_table_association" "vpn_rta1_az1" {
   subnet_id      = aws_subnet.vpn_sn_az1.id
   route_table_id = aws_route_table.vpn_rt_az1.id
@@ -60,15 +59,14 @@ resource "aws_route_table_association" "private_rta1_az1" {
 
 
 
-# resource "aws_vpc_endpoint" "ddb_ep" {
-#   vpc_endpoint_type   = "Interface"
-#   private_dns_enabled = true
-#   service_name        = "com.amazonaws.${var.region}.dynamodb"
+resource "aws_vpc_endpoint" "ddb_ep" {
+  vpc_endpoint_type   = "Interface"
+  service_name        = "com.amazonaws.${var.region}.dynamodb"
 
-#   vpc_id              = aws_vpc.this.id
-#   security_group_ids  = [aws_security_group.ddb_ep_sg.id]
-#   subnet_ids          = [aws_subnet.vpn_sn_az1.id]
-#   tags = {
-#     Name = "dynamodb-endpoint"
-#   }
-# }
+  vpc_id              = aws_vpc.this.id
+  security_group_ids  = [aws_security_group.ddb_ep_sg.id]
+  subnet_ids          = [aws_subnet.vpn_sn_az1.id]
+  tags = {
+    Name = "dynamodb-endpoint"
+  }
+}

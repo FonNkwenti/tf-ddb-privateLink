@@ -34,6 +34,4 @@ locals {
   account_id          = data.aws_caller_identity.current.account_id
   server_cert_arn     = data.aws_acm_certificate.server_cert.arn
   client_cert_arn     = data.aws_acm_certificate.client_cert.arn
-  domain              = var.domain
-
 }
