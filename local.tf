@@ -13,27 +13,27 @@ data "aws_ami" "amazon_linux_2" {
   }
 }
 
-data "aws_ssm_parameter" "vpc_id" {
-  name = "/vpc/eu-central-1/my-vpc"
-}
 
-data "aws_ssm_parameter" "vpn_sn_az1_id" {
-  name  = "/vpc/eu-central-1/vpn-sn-az1"
-}
+data "aws_acm_certificate" "server_cert" {
+  domain   = "server.tf-private-ddb.com"
+  statuses = ["ISSUED"]
 
-data "aws_ssm_parameter" "private_sn_az1_id" {
-  name  = "/vpc/eu-central-1/private-sn-az1"
+}
+data "aws_acm_certificate" "client_cert" {
+  domain   = "client1.tf-private-ddb.com"
+  statuses = ["ISSUED"]
+
 }
 locals {
-  ddb_table_name  = "todo-table"
-  env             = "dev"
-  az1             = data.aws_availability_zones.available.names[0]
-  az2             = data.aws_availability_zones.available.names[1]
-  ami             = data.aws_ami.amazon_linux_2.id
-  vpc_id          = data.aws_ssm_parameter.vpc_id.value
-  vpn_sn_az1_id   = data.aws_ssm_parameter.vpn_sn_az1_id.value
-  private_sn_az1_id = data.aws_ssm_parameter.private_sn_az1_id.value
-  region          = var.region
-  account_id      = data.aws_caller_identity.current.account_id
+  ddb_table_name      = "todo-table"
+  env                 = "dev"
+  az1                 = data.aws_availability_zones.available.names[0]
+  az2                 = data.aws_availability_zones.available.names[1]
+  ami                 = data.aws_ami.amazon_linux_2.id
+  region              = var.region
+  account_id          = data.aws_caller_identity.current.account_id
+  server_cert_arn     = data.aws_acm_certificate.server_cert.arn
+  client_cert_arn     = data.aws_acm_certificate.client_cert.arn
+  domain              = var.domain
 
 }

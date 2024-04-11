@@ -16,3 +16,15 @@ variable "tag_project" {
   type    = string
   default = "my-tf-project"
 }
+
+variable "domain" {
+  default = "tf-private-ddb.com"
+}
+
+# variable "server_cert" {
+#   description = "Server certificate"
+# }
+
+# variable "client_cert" {
+#   description = "Client/Root certificate"
+# }
