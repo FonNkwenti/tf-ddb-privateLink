@@ -22,7 +22,7 @@ Before you begin, ensure you have the following:
 |- provider.tf
 |- terraform.tfvars.tf
 |- variables.tf
-|- api-vpc.tf
+|- vpc.tf
 |- security-groups.tf
 |- apigw.tf
 |- ec2.tf
