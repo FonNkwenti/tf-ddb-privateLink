@@ -1,6 +1,7 @@
 
 
 resource "aws_ec2_client_vpn_endpoint" "my_client_vpn" {
+
   description            = "My client vpn"
   server_certificate_arn = local.server_cert_arn
   client_cidr_block      = "10.100.0.0/22"
@@ -16,7 +17,12 @@ resource "aws_ec2_client_vpn_endpoint" "my_client_vpn" {
   }
 
   connection_log_options {
-    enabled = false
+    enabled = true
+    cloudwatch_log_group = aws_cloudwatch_log_group.client_vpn_logs.name
+   }
+
+   tags = {
+     Name = "my-client-vpn"
    }
 
 }
@@ -24,6 +30,7 @@ resource "aws_ec2_client_vpn_endpoint" "my_client_vpn" {
 resource "aws_ec2_client_vpn_network_association" "client_vpn_association_private" {
     client_vpn_endpoint_id = aws_ec2_client_vpn_endpoint.my_client_vpn.id
     subnet_id = aws_subnet.vpn_sn_az1.id
+    # subnet_id = aws_subnet.private_sn_az1.id
 
     lifecycle {
       ignore_changes = [subnet_id]
@@ -36,4 +43,9 @@ resource "aws_ec2_client_vpn_authorization_rule" "authorization_rule" {
   
   target_network_cidr    = "10.0.0.0/16"
   authorize_all_groups   = true
+}
+
+resource "aws_cloudwatch_log_group" "client_vpn_logs" {
+  name              = "/aws/ec2/client_vpn"
+  retention_in_days = 7 
 }

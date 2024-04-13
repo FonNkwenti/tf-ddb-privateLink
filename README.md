@@ -9,7 +9,7 @@ Before you begin, ensure you have the following:
 - AWS CLI installed and configured with appropriate access credentials
 
 ## Architecture
-![Diagram](aws-client-vpn.png)
+![Diagram](aws-client-vpn.webp)
 
 ---
 
