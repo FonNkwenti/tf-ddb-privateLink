@@ -7,26 +7,11 @@ Before you begin, ensure you have the following:
 - AWS account
 - Terraform installed locally
 - AWS CLI installed and configured with appropriate access credentials
+- OpenVPN client like [AWS Client VPN](https://aws.amazon.com/vpn/client-vpn-download/)
 
 ## Architecture
 ![Diagram](aws-client-vpn.webp)
 
----
-
-## Project Structure
-```bash
-|- src/
-	|- archives/
-  |- events/
-	|- handlers/
-|- provider.tf
-|- terraform.tfvars.tf
-|- variables.tf
-|- vpc.tf
-|- security-groups.tf
-|- apigw.tf
-|- ec2.tf
-```
 ---
 ## Getting Started
 
